@@ -1,6 +1,6 @@
-# define get16bits(d) (*((const uint16_t *) (d)))
+# include <hashmap.h>
 
-unsigned int strlen(char *str)
+static unsigned int ft_strlen(char *str)
 {
 	int		index;
 
@@ -12,9 +12,12 @@ unsigned int strlen(char *str)
 	return (index);
 }
 
-unsigned int compute_hash(char *key, unsigned int hash, unsigned int len)
+static unsigned int compute_hash(char *key, unsigned int hash, unsigned int len)
 {
-	while (len > 0)
+	unsigned int	tmp;
+
+	len++;
+	while (--len > 0)
 	{
 		hash += get16bits(key);
 		tmp = (get16bits(key + 2) << 11) ^ hash; 
@@ -25,13 +28,13 @@ unsigned int compute_hash(char *key, unsigned int hash, unsigned int len)
 	return (hash);
 }
 
-unsigned int handle_end(char *key, unsigned int hash, unsigned int rem)
+static unsigned int handle_end(char *key, unsigned int hash, unsigned int rem)
 {
 	if (rem == 3)
 	{
 		hash += get16bits (key);
 		hash ^= hash << 16;
-		hash ^= ((signed char)key[sizeof (uint16_t)]) << 18;
+		hash ^= ((char)key[sizeof (short unsigned int)]) << 18;
 		hash += hash >> 11;
 	}
 	else if (rem == 2)
@@ -56,7 +59,7 @@ unsigned int superfasthash(char *key)
 	unsigned int	len;
 	int				rem;
 
-	if (!(len = strlen(key)))
+	if (!(len = ft_strlen(key)))
 		return (0);
 	rem = len & 3;
 	hash = compute_hash(key, len, len >> 2);
