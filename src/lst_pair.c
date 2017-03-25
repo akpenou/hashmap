@@ -1,4 +1,4 @@
-#include <lst_pair.h>
+#include <hashmap.h>
 
 void	*pair_insert(t_pair *lst, t_pair *pair)
 {
@@ -11,7 +11,7 @@ void	*pair_insert(t_pair *lst, t_pair *pair)
 		pair->next = tmp;
 		return (pair);
 	}
-	while (tmp->next && ft_strcmp(pair->key, tmp->next->key) => 0) // move foreward until the key lower than tmp->next->key
+	while (tmp->next && ft_strcmp(pair->key, tmp->next->key) >= 0) // move foreward until the key lower than tmp->next->key
 		tmp = tmp->next;
 	// insert the pair at the right place
 	pair->next = tmp->next;

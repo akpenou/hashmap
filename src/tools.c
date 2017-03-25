@@ -1,4 +1,4 @@
-#include <tools.h>
+#include <hashmap.h>
 
 int		ft_strcmp(char *a, char *b)
 {

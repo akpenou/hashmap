@@ -1,4 +1,4 @@
-#include <lst.h>
+#include <hashmap.h>
 
 void	*push_front(t_lst *lst, t_lst *elem)
 {
